@@ -1,13 +1,16 @@
 from fastapi import FastAPI
+import datetime
 
 app = FastAPI()
 
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    if datetime.date.weekday(datetime.date.today()) != 3:
+        return {"message": "Not Thursday."}
+    return {"message": "KFC Crazy Thursday V50."}
 
 
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app)
